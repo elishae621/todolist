@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Favicon and title -->
+    <link rel="icon" href="path/to/fav.png">
+    <title>To Do List - Using Spring Boot</title>
+
+    <!-- Font awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+
+    <!-- Halfmoon CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS styles -->
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+
+    <!-- Responsive CSS styles -->
+    <link th:href="@{/css/responsive.css}" rel="stylesheet" />
+</head>
+
+<body class="with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true"
+    data-set-preferred-mode-onload="true">
+    
+    <!-- Modals go here -->
+    <!-- new task form model -->
+    <div class="modal" id="new-task" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <a href="" class="close" role="button" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <h5 class="modal-title">New Task</h5>
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="task" class="required">Task</label>
+                        <input type="text" class="form-control" placeholder="What do you want to do" required="required">
+                    </div>
+                    <input class="btn btn-primary btn-block" type="submit" value="Save">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- edit form model -->
+    <div class="modal" id="edit-task" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <a href="" class="close" role="button" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <h5 class="modal-title">Edit Task</h5>
+                <form action="..." method="POST" class="edit-form">
+                    <input type="hidden" class="task-id">
+                    <div class="form-group">
+                        <label for="task" class="required">Task</label>
+                        <input type="text" class="form-control task" placeholder="What do you want to do"
+                            required="required">
+                    </div>
+                    <input class="btn btn-primary btn-block" type="submit" value="SAVE">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete confirmation form modal -->
+    <div class="modal" id="delete-task" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <a href="" class="close" role="button" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <h5 class="modal-title">Are you sure you want to delete this  task?</h5>
+                <p>
+                    This action is irreversible.
+                </p>
+                <form action="..." method="POST" class="delete-form text-right mt-20">
+                    <input type="hidden" class="task-id">
+                    <a href="" class="btn mr-5 close" role="button">CANCEL</a>
+                    <input class="btn btn-danger" type="submit" value="DELETE">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page wrapper start -->
+    <div class="page-wrapper with-navbar">
+
+        <!-- Sticky alerts (toasts), empty container -->
+        <div class="sticky-alerts"></div>
+
+        <!-- Navbar start -->
+        <!-- Navbar with content justified center -->
+        <nav class="navbar justify-content-center">
+
+            <!-- Navbar brand -->
+            <a href="#" class="navbar-brand">
+                <span>TO DO LIST</span>
+            </a>
+
+            <!-- dark mode switch and add task button -->
+            <div class="navbar-content ml-auto">
+                <button class="btn btn-action mr-10" type="button" onclick="halfmoon.toggleDarkMode()">
+                    <i class="fa fa-moon-o" aria-hidden="true"></i>
+                    <span class="sr-only">Toggle dark mode</span>
+                </button>
+                <a href="#new-task" class="btn btn-primary" role="button">Add Task</a>
+            </div>
+        </nav>
+        <!-- Navbar end -->
+
+        <!-- Content wrapper start -->
+        <div class="content-wrapper postion-relative">
+            <div class="content overflow-scroll m-auto pt-15">
+                <div class="content-title w-full w-sm-three-quarter w-md-half px-10 m-auto py-20">
+                    <!-- inline search form -->
+                    <form action="..." method="..." class="form-inline">
+                        <input type="text" class="form-control" placeholder="Search..." required="required">
+                        <input type="submit" class="btn btn-primary" value="Search">
+                    </form>
+                </div>
+                <div class="container w-full w-md-three-quarter w-xl-half ">
+                    
+                    <!-- Loop through each task in the model -->
+                    <div th:each="tempTask : ${tasks}" class="row h-50 my-10 taskbar align-items-center">
+                        <div class="col-2 col-sm">
+                            <input type="checkbox" class="checkbox ml-sm-10 ml-20" id="checkbox-2" th:checked="${tempTask.completed}">
+                        </div>
+                        <div class="col-8 col-sm-9">
+                            <label class="font-size-22" for="checkbox-2" th:text="${tempTask.content}"></label>
+                        </div>
+                        <div class="col">
+                        <i class="fa fa-pencil font-size-24 pl-sm-10" aria-hidden="true" th:attr="onclick=|showEditModal(${tempTask.id}, ${tempTask.content})|"></i>
+                        </div>
+                        <div class="col">
+                            <i class="fa fa-trash-o font-size-24" aria-hidden="true" th:attr="onclick=|showDeleteModal(${tempTask.id})|"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row position-absolute mx-auto left-0 right-0 add-button-row justify-content-center">
+                <!-- floating add button-->
+                <div class="d-flex ">
+                    <a href="#new-task" class=" plus"><i class="fa fa-plus-circle"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- Content wrapper end -->
+
+    </div>
+    <!-- Page wrapper end -->
+
+    <!-- Halfmoon JS -->
+    <script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+
+    <!-- Custom JS -->
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

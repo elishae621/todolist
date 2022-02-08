@@ -1,0 +1,25 @@
+
+
+/* mobile phones and landscapes  */
+@media screen and (max-width: 576px) {
+
+  .taskbar .text {
+    font-size: 1.6rem;
+  }
+
+  .taskbar .icon {
+    font-size: 1.8rem;
+  }
+}
+
+/* phones and portraits  */
+@media screen and (max-width: 420px) {
+
+  .taskbar .text {
+    font-size: 1.6rem;
+  }
+
+  .taskbar .icon {
+    font-size: 1.8rem;
+  }
+}

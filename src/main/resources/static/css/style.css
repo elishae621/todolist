@@ -1,0 +1,19 @@
+.taskbar .checkbox {
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  transform: scale(2);
+}
+
+.plus {
+  font-size: 4rem;
+}
+
+.content-wrapper > .content {
+  height: 90%;
+}
+
+.add-button-row {
+  bottom: 3%;
+}
