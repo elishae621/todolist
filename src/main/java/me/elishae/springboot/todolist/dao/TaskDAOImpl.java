@@ -52,7 +52,7 @@ public class TaskDAOImpl implements TaskDAO {
         Query query = entityManager.createQuery("delete from Task where id=:taskId");
 
         // set the query parameter
-        query.setParameter("taskId", "id");
+        query.setParameter("taskId", id);
 
         // execute query 
         query.executeUpdate();

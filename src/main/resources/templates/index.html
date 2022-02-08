@@ -83,8 +83,9 @@
                 <p>
                     This action is irreversible.
                 </p>
-                <form action="..." method="POST" class="delete-form text-right mt-20">
-                    <input type="hidden" class="task-id">
+                <form action="#" th:action="@{/delete-task}" th:object="${task}" method="POST"
+                    class="delete-form text-right mt-20">
+                    <input type="hidden" th:field="*{id}" class="task-id">
                     <a href="" class="btn mr-5 close" role="button">CANCEL</a>
                     <input class="btn btn-danger" type="submit" value="DELETE">
                 </form>

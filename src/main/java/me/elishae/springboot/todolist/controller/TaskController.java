@@ -59,13 +59,29 @@ public class TaskController {
 
     @PostMapping(value="/edit-task")
     public ModelAndView saveEditedTask(@ModelAttribute("task") Task newTask) {
-        
+
         // define mav and populate with sample task
         ModelAndView mav = new ModelAndView();
         mav.addObject("task", new Task());
 
         // save the employee
         taskService.saveTask(newTask);
+
+        // redirect to homepage
+        mav.setViewName("redirect:/");
+
+        return mav;
+    }
+    
+    @PostMapping(value = "/delete-task")
+    public ModelAndView deleteTask(@ModelAttribute("task") Task task) {
+
+        // define mav and populate with sample task
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("task", new Task());
+
+        // save the employee
+        taskService.deleteTask(task.getId());
 
         // redirect to homepage
         mav.setViewName("redirect:/");
