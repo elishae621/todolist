@@ -57,11 +57,13 @@
                     <span aria-hidden="true">&times;</span>
                 </a>
                 <h5 class="modal-title">Edit Task</h5>
-                <form action="..." method="POST" class="edit-form">
-                    <input type="hidden" class="task-id">
+                <form action="#" th:action="@{/edit-task}" th:object="${task}" method="POST"
+                    class="edit-form">
+                    <input type="hidden" th:field="*{id}" class="task-id">
                     <div class="form-group">
                         <label for="task" class="required">Task</label>
-                        <input type="text" class="form-control task" placeholder="What do you want to do"
+                        <input type="text" th:field="*{content}"  class="form-control task"
+                            placeholder="What do you want to do"
                             required="required">
                     </div>
                     <input class="btn btn-primary btn-block" type="submit" value="SAVE">
@@ -137,7 +139,7 @@
                             <label class="font-size-22" for="checkbox-2" th:text="${tempTask.content}"></label>
                         </div>
                         <div class="col">
-                        <i class="fa fa-pencil font-size-24 pl-sm-10" aria-hidden="true" th:attr="onclick=|showEditModal(${tempTask.id}, ${tempTask.content})|"></i>
+                        <i class="fa fa-pencil font-size-24 pl-sm-10" aria-hidden="true" th:attr="onclick=|showEditModal(${tempTask.id}, '${tempTask.content}')|"></i>
                         </div>
                         <div class="col">
                             <i class="fa fa-trash-o font-size-24" aria-hidden="true" th:attr="onclick=|showDeleteModal(${tempTask.id})|"></i>

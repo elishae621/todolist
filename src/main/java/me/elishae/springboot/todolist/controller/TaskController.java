@@ -53,7 +53,23 @@ public class TaskController {
 
         // redirect to homepage 
         mav.setViewName("redirect:/");
+
+        return mav;
+    }
+
+    @PostMapping(value="/edit-task")
+    public ModelAndView saveEditedTask(@ModelAttribute("task") Task newTask) {
         
+        // define mav and populate with sample task
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("task", new Task());
+
+        // save the employee
+        taskService.saveTask(newTask);
+
+        // redirect to homepage
+        mav.setViewName("redirect:/");
+
         return mav;
     }
     

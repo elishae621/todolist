@@ -6,7 +6,6 @@ function showDeleteModal(id) {
 
     // show the modal
     halfmoon.toggleModal("delete-task");
-    
 }
 
 // show edit modal and
