@@ -38,10 +38,10 @@
                     <span aria-hidden="true">&times;</span>
                 </a>
                 <h5 class="modal-title">New Task</h5>
-                <form action="#" method="POST">
+                <form action="#" th:action="@{/new-task}" th:object="${task}" method="POST">
                     <div class="form-group">
                         <label for="task" class="required">Task</label>
-                        <input type="text" class="form-control" placeholder="What do you want to do" required="required">
+                        <input type="text" th:field="*{content}" class="form-control" placeholder="What do you want to do" required="required">
                     </div>
                     <input class="btn btn-primary btn-block" type="submit" value="Save">
                 </form>

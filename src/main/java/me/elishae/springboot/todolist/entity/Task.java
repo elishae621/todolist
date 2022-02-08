@@ -21,7 +21,7 @@ public class Task {
     private String content;
 
     @Column(name = "completed")
-    private Boolean completed;
+    private Boolean completed = false;
 
     // define constructors
     public Task() {
