@@ -17,13 +17,8 @@ import me.elishae.springboot.todolist.entity.Task;
 @Repository
 public class TaskDAOImpl implements TaskDAO {
 
-    private EntityManager entityManager;
-
-    // inject entityManager
     @Autowired
-    public TaskDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    private EntityManager entityManager;
 
     @Override
     public List<Task> getTasks() {

@@ -2,6 +2,7 @@ package me.elishae.springboot.todolist.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,12 +12,8 @@ import me.elishae.springboot.todolist.entity.Task;
 @Service
 public class TaskServiceImpl implements TaskService {
 
-    // inject DAO class using constructor injection
+    @Autowired
     private TaskDAO taskDAO;
-
-    public TaskServiceImpl(TaskDAO taskDAO) {
-        this.taskDAO = taskDAO;
-    }
 
     @Override
     @Transactional

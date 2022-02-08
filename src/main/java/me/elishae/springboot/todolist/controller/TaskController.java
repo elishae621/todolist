@@ -15,13 +15,8 @@ import me.elishae.springboot.todolist.service.TaskService;
 @RequestMapping("/")
 public class TaskController {
     
-    private TaskService taskService;
-
-    // inject service using constructor injection 
     @Autowired
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
-    }
+    private TaskService taskService;
 
     @GetMapping("/")
     public ModelAndView showTasks() {
